@@ -189,9 +189,78 @@ adb shell "su -c id"
 
 ---
 
-## Étape 16 : Remise à zéro (obligatoire)
+## Étape 17 : Remise à zéro AVD (obligatoire fin de séance)
 
-**AVD :** Android Studio → Device Manager → Wipe Data  
-Ou : `adb emu avd stop` puis `adb emu avd wipe-data`
+**Via UI :** Android Studio → Device Manager → Wipe Data (ou Delete puis Recreate)
 
-**Device labo :** Paramètres → Réinitialisation usine. Preuve : assistant initial visible.
+**Via commandes :**
+```bash
+adb emu avd stop
+adb emu avd wipe-data
+```
+
+**Pourquoi c'est crucial :** Ne pas réinitialiser l'environnement, c'est comme laisser un laboratoire avec des produits chimiques sur les tables — dangereux pour la prochaine personne et source potentielle de contamination des résultats futurs.
+
+**Preuve :** Au redémarrage, assistant initial ou état "neuf" visible.
+
+**Astuce :** Prenez une capture d'écran de l'écran d'accueil initial ou de l'assistant de configuration comme preuve de réinitialisation réussie.
+
+![Wipe Data](wipedata.png)
+![Résultat du wipe](wipeResuit.png)
+
+---
+
+## Étape 18 : Remise à zéro device labo (si utilisé)
+
+- Paramètres système → Réinitialisation usine → Redémarrer
+- Vérifier absence de comptes/profils/certificats
+- **Preuve :** assistant de configuration initial
+
+**Vérification supplémentaire :** Après réinitialisation, vérifiez l'absence de certificats racine personnalisés dans les paramètres de sécurité (qui pourraient permettre l'interception de trafic HTTPS).
+
+**Option fastboot (labo uniquement) :**
+```bash
+fastboot erase userdata
+# Puis redémarrer
+```
+Capturer l'écran de l'assistant initial.
+
+> **Différence technique :** La réinitialisation via les paramètres efface les données utilisateur mais peut laisser des traces dans certaines partitions. La commande fastboot effectue un effacement de bas niveau plus complet.
+
+---
+
+## Étape 19 : Livrables (1–2 pages)
+
+À inclure dans le rapport :
+
+| Élément | Contenu |
+|---------|---------|
+| Définition rooting | 4 phrases |
+| Schéma | Chaîne de confiance Verified Boot / AVB |
+| Risques & mesures | 8 risques + 8 mesures défensives |
+| MASVS | 2 exigences résumées |
+| MASTG | 2 idées de tests |
+| Fiche environnement | Remplie |
+| Checklist reset | Signée + preuves (captures commandes/wipe) |
+
+> Utilisez des tableaux, listes à puces et schémas simples pour rendre le rapport lisible. Un bon rapport de sécurité doit être compréhensible même par des non-spécialistes.
+
+---
+
+## Étape 20 : Checklist finale
+
+**Début :**
+- [ ] Périmètre écrit
+- [ ] AVD neuf
+- [ ] App test installée
+- [ ] 3 scénarios notés
+- [ ] Versions Android/app notées
+
+**Fin :**
+- [ ] Données de test supprimées
+- [ ] Reset effectué (wipe AVD ou reset device)
+- [ ] Preuve du reset
+- [ ] Rapport + traçabilité sauvegardés
+- [ ] Aucun compte personnel utilisé
+
+> Cette checklist suit le principe **Plan-Do-Check-Act (PDCA)** : planification avant les tests, exécution contrôlée, vérification des résultats, et actions de nettoyage.
