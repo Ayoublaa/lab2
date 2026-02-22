@@ -8,7 +8,6 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **App + version** | [Nom] + [Version] |
 | **Support** | AVD / Device labo |
 | **Objectif** | Rooting et impacts sur les contrôles d'intégrité |
 | **Données** | Fictives |
